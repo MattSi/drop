@@ -28,6 +28,7 @@ public class GameScreen implements Screen {
     Array<Rectangle> rainDrops;
     long lastDropTime;
     int dropsGathered;
+    int dropMissed;
 
     public GameScreen(Drop game) {
         this.game = game;
@@ -46,7 +47,6 @@ public class GameScreen implements Screen {
         // create the camera and the SpriteBatch
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 400);
-        //batch = new SpriteBatch();
 
         // create a Rectange to logically represent the bucket
         bucket = new Rectangle();
@@ -57,6 +57,8 @@ public class GameScreen implements Screen {
 
         // create the raindrops array and sqawn the first raindrop
         rainDrops = new Array<>();
+        dropsGathered = 0;
+        dropMissed = 0;
 
         spawnRaindrop();
     }
@@ -74,7 +76,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {
-        rainMusic.play();
+        //rainMusic.play();
     }
 
     @Override
@@ -96,6 +98,8 @@ public class GameScreen implements Screen {
         for(Rectangle raindrop : rainDrops){
             game.batch.draw(dropImage, raindrop.x, raindrop.y);
         }
+        game.font.draw(game.batch, String.format("Gathered: %d", dropsGathered), 0, 380);
+        game.font.draw(game.batch, String.format("Missed: %d", dropMissed), 600, 380);
         game.batch.end();
 
         // process user input
@@ -106,7 +110,7 @@ public class GameScreen implements Screen {
             bucket.x = touchPos.x - 64/2;
         }
 
-        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) bucket.x -= 200 * Gdx.graphics.getDeltaTime();
+        if(Gdx.input.isKeyPressed(Input.Keys.LEFT))  bucket.x -= 200 * Gdx.graphics.getDeltaTime();
         if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) bucket.x += 200 * Gdx.graphics.getDeltaTime();
 
         // make sure the bucket stays within the screen bounds
@@ -122,8 +126,12 @@ public class GameScreen implements Screen {
         for(Iterator<Rectangle> iter = rainDrops.iterator(); iter.hasNext();){
             Rectangle raindrop = iter.next();
             raindrop.y -= 200 * Gdx.graphics.getDeltaTime();
-            if(raindrop.y + 64 < 0)iter.remove();
+            if(raindrop.y + 64 < 0){
+                iter.remove();
+                dropMissed ++;
+            }
             if(raindrop.overlaps(bucket)){
+                dropsGathered++;
                 dropSound.play();
                 iter.remove();
             }
