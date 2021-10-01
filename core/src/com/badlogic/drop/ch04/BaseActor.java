@@ -1,4 +1,4 @@
-package com.badlogic.drop.ch03;
+package com.badlogic.drop.ch04;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
@@ -9,13 +9,14 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.ArrayList;
 
-public class BaseActor extends Actor {
+public class BaseActor extends Group {
     private Animation<TextureRegion> animation;
     private float elapsedTime;
     private boolean animationPaused;
@@ -68,7 +69,7 @@ public class BaseActor extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        super.draw(batch, parentAlpha);
+
 
         Color c = getColor();
         batch.setColor(c.r, c.g, c.b, c.a);
@@ -77,6 +78,8 @@ public class BaseActor extends Actor {
             batch.draw(animation.getKeyFrame(elapsedTime),
                     getX(), getY(), getOriginX(), getOriginY(),
                     getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
+
+        super.draw(batch, parentAlpha);
     }
 
 
@@ -184,18 +187,18 @@ public class BaseActor extends Actor {
         deceleration = dec;
     }
 
-    public void applyPhysics(float dt){
-        velocityVec.add(accelerationVec.x * dt, accelerationVec.y * dt);
+    public void applyPhysics(float delta){
+        velocityVec.add(accelerationVec.x * delta, accelerationVec.y * delta);
         float speed = getSpeed();
 
         if (accelerationVec.len() == 0) {
-            speed -= deceleration * dt;
+            speed -= deceleration * delta;
         }
 
         speed = MathUtils.clamp(speed, 0, maxSpeed);
 
         setSpeed(speed);
-        moveBy(velocityVec.x * dt, velocityVec.y * dt);
+        moveBy(velocityVec.x * delta, velocityVec.y * delta);
         accelerationVec.set(0,0);
     }
 
@@ -333,5 +336,18 @@ public class BaseActor extends Actor {
         System.out.printf("Cam: {%.2f, %.2f}. CVP:{%.2f, %.2f}. Tur: {%.2f, %.2f}. Ori: {%.2f, %.2f}\n",
                 cam.position.x, cam.position.y, cam.viewportWidth, cam.viewportHeight,
                 getX(), getY(), getOriginX(), getOriginY());
+    }
+
+    public void wrapAroundWorld(){
+        if(getX() + getWidth() < 0)
+            setX(worldBounds.width);
+        if(getX() > worldBounds.width)
+            setX(-getWidth());
+
+        if(getY() + getHeight() < 0)
+            setY(worldBounds.height);
+        if(getY() > worldBounds.height)
+            setY(-getHeight());
+
     }
 }

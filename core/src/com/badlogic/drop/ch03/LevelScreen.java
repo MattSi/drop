@@ -2,7 +2,7 @@ package com.badlogic.drop.ch03;
 
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
-public class LevenScreen extends BaseScreen{
+public class LevelScreen extends BaseScreen{
     private Turtle turtle;
     private boolean win;
 
