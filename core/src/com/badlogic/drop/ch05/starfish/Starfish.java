@@ -1,4 +1,4 @@
-package com.badlogic.drop.ch05;
+package com.badlogic.drop.ch05.starfish;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Stage;

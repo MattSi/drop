@@ -1,4 +1,4 @@
-package com.badlogic.drop.ch05;
+package com.badlogic.drop.ch05.starfish;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
@@ -6,14 +6,20 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public abstract class BaseScreen implements Screen, InputProcessor {
     protected Stage mainStage;
     protected Stage uiStage;
+    protected Table uiTable;
 
     public BaseScreen() {
         mainStage = new Stage();
         uiStage = new Stage();
+        uiTable = new Table();
+        uiTable.setFillParent(true);
+        uiStage.addActor(uiTable);
+
         initialize();
     }
 
@@ -111,4 +117,6 @@ public abstract class BaseScreen implements Screen, InputProcessor {
     public boolean scrolled(float amountX, float amountY) {
         return false;
     }
+
+
 }

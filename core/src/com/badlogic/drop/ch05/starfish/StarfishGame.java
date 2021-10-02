@@ -1,4 +1,4 @@
-package com.badlogic.drop.ch05;
+package com.badlogic.drop.ch05.starfish;
 
 public class StarfishGame extends BaseGame {
 

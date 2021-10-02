@@ -1,4 +1,4 @@
-package com.badlogic.drop.ch05;
+package com.badlogic.drop.ch05.starfish;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -6,12 +6,16 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 public class BaseGame extends Game {
     private static BaseGame game;
     public static Label.LabelStyle labelStyle;
+    public static TextButton.TextButtonStyle textButtonStyle;
 
     public BaseGame(){
         game = this;
@@ -42,5 +46,12 @@ public class BaseGame extends Game {
 
         BitmapFont custFont = fontGenerator.generateFont(fontParameter);
         labelStyle.font = custFont;
+
+        textButtonStyle = new TextButton.TextButtonStyle();
+        Texture buttonTex = new Texture(Gdx.files.internal("starfish/button.png"));
+        NinePatch buttonPatch =new NinePatch(buttonTex, 24, 24, 24, 24);
+        textButtonStyle.up = new NinePatchDrawable(buttonPatch);
+        textButtonStyle.font = custFont;
+        textButtonStyle.fontColor = Color.GRAY;
     }
 }

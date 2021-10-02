@@ -1,4 +1,4 @@
-package com.badlogic.drop.ch05;
+package com.badlogic.drop.ch05.starfish;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
@@ -346,4 +346,24 @@ public class BaseActor extends Group {
             setY(-getHeight());
 
     }
+
+    public boolean isWithinDistance(float distance, BaseActor other){
+        Polygon poly1 = this.getBoundaryPolygon();
+        float scaleX = (getWidth() + 2 * distance) / getWidth();
+        float scaleY = (getHeight() + 2 * distance) / getHeight();
+        poly1.setScale(scaleX, scaleY);
+
+        Polygon poly2 = other.getBoundaryPolygon();
+        if(!poly1.getBoundingRectangle().overlaps(poly2.getBoundingRectangle())){
+            return false;
+        }
+
+        return Intersector.overlapConvexPolygons(poly1, poly2);
+    }
+
+    public static Rectangle getWorldBounds(){
+        return worldBounds;
+    }
+
+
 }

@@ -1,4 +1,4 @@
-package com.badlogic.drop.ch05;
+package com.badlogic.drop.ch05.starfish;
 
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
@@ -31,10 +31,10 @@ public class StarfishCollector extends GameBeta {
 
     @Override
     public void update(float dt) {
-        for(BaseActor rockActor : BaseActor.getList(mainStage, "com.badlogic.drop.ch05.Rock"))
+        for(BaseActor rockActor : BaseActor.getList(mainStage, "com.badlogic.drop.ch05.starfish.Rock"))
             turtle.preventOverlap(rockActor);
 
-        for(BaseActor starfishActor : BaseActor.getList(mainStage, "com.badlogic.drop.ch05.Starfish")){
+        for(BaseActor starfishActor : BaseActor.getList(mainStage, "com.badlogic.drop.ch05.starfish.Starfish")){
             Starfish starfish = (Starfish) starfishActor;
 
             if(turtle.overlaps(starfish) && !starfish.isCollected()) {
@@ -45,7 +45,7 @@ public class StarfishCollector extends GameBeta {
             }
         }
 
-        if(BaseActor.count(mainStage, "com.badlogic.drop.ch05.Starfish") == 0 && !win){
+        if(BaseActor.count(mainStage, "com.badlogic.drop.ch05.starfish.Starfish") == 0 && !win){
             win = true;
             BaseActor youWinMessage = new BaseActor(0,0, mainStage);
             youWinMessage.loadTexture("starfish/you-win.png");

@@ -1,6 +1,6 @@
 package com.badlogic.drop.desktop;
 
-import com.badlogic.drop.ch05.StarfishGame;
+import com.badlogic.drop.ch05.starfish.StarfishGame;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
