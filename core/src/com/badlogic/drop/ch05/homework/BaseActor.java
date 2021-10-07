@@ -16,6 +16,14 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.ArrayList;
 
+/**
+ * Extends functionality of the LibGDX Actor class.
+ * by adding support for textures/animation, 
+ * collision polygons, movement, world boundaries, and camera scrolling. 
+ * Most game objects should extend this class; lists of extensions can be retrieved by stage and class name.
+ * @see #Actor
+ * @author Lee Stemkoski
+ */
 public class BaseActor extends Group {
     private Animation<TextureRegion> animation;
     private float elapsedTime;
@@ -43,6 +51,37 @@ public class BaseActor extends Group {
         deceleration = 0f;
     }
 
+
+    /** 
+     *  If this object moves completely past the world bounds,
+     *  adjust its position to the opposite side of the world.
+     */
+	public void wrapAroundWorld(){
+        if(getX() + getWidth() < 0)
+            setX(worldBounds.width);
+        if(getX() > worldBounds.width)
+            setX(-getWidth());
+
+        if(getY() + getHeight() < 0)
+            setY(worldBounds.height);
+        if(getY() > worldBounds.height)
+            setY(-getHeight());
+	}
+	
+	
+	/**
+     *  Align center of actor at given position coordinates.
+     *  @param x x-coordinate to center at
+     *  @param y y-coordinate to center at
+     */
+	 public void centerAtPosition(float x, float y){
+        setPosition(x - getWidth()/2, y - getHeight()/2);
+    }
+
+    public void centerAtActor(BaseActor other){
+        centerAtPosition(other.getX() + other.getWidth()/2,
+                other.getY() + other.getHeight()/2);
+    }
     public void setAnimation(Animation<TextureRegion> anim){
         animation = anim;
         TextureRegion tr = animation.getKeyFrame(0);
@@ -244,14 +283,7 @@ public class BaseActor extends Group {
         return Intersector.overlapConvexPolygons(poly1, poly2);
     }
 
-    public void centerAtPosition(float x, float y){
-        setPosition(x - getWidth()/2, y - getHeight()/2);
-    }
-
-    public void centerAtActor(BaseActor other){
-        centerAtPosition(other.getX() + other.getWidth()/2,
-                other.getY() + other.getHeight()/2);
-    }
+   
 
     public void setOpacity(float opacity){
         this.getColor().a = opacity;
@@ -334,18 +366,7 @@ public class BaseActor extends Group {
         cam.update();
     }
 
-    public void wrapAroundWorld(){
-        if(getX() + getWidth() < 0)
-            setX(worldBounds.width);
-        if(getX() > worldBounds.width)
-            setX(-getWidth());
-
-        if(getY() + getHeight() < 0)
-            setY(worldBounds.height);
-        if(getY() > worldBounds.height)
-            setY(-getHeight());
-
-    }
+    
 
     public boolean isWithinDistance(float distance, BaseActor other){
         Polygon poly1 = this.getBoundaryPolygon();

@@ -15,8 +15,6 @@ public class MenuScreen extends BaseScreen {
 
         BaseActor title = new BaseActor(0,0,mainStage);
         title.loadTexture("starfish/starfish-collector.png");
-       // title.centerAtPosition(400, 300);
-       // title.moveBy(0, 100);
 
         TextButton startButton = new TextButton("Start", BaseGame.textButtonStyle);
         //startButton.setPosition(150,150);
