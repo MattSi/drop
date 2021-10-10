@@ -44,7 +44,7 @@ public class LevelScreen extends BaseScreen{
         uiTable.add().expandY();
 
         enemyTimer = 0;
-        enemySpawnInterval = 3;
+        enemySpawnInterval = 1.5f;
         enemySpeed = 100;
 
         gameOver = false;

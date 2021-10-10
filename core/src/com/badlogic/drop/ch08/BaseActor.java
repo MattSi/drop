@@ -1,4 +1,4 @@
-package com.badlogic.drop.ch07;
+package com.badlogic.drop.ch08;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
@@ -33,7 +33,7 @@ public class BaseActor extends Group
     private float elapsedTime;
     private boolean animationPaused;
 
-    private Vector2 velocityVec;
+    protected Vector2 velocityVec;
     private Vector2 accelerationVec;
     private float acceleration;
     private float maxSpeed;
