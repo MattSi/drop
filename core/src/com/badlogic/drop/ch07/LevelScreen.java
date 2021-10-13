@@ -26,6 +26,7 @@ public class LevelScreen extends BaseScreen{
 
     @Override
     public void initialize() {
+
         new Sky(0,0,mainStage);
         new Sky(800, 0, mainStage);
         new Ground(0,0, mainStage);
@@ -62,6 +63,8 @@ public class LevelScreen extends BaseScreen{
         backgroundMusic.setLooping(true);
         backgroundMusic.setVolume(1.00f);
         backgroundMusic.play();
+
+
     }
 
     @Override
