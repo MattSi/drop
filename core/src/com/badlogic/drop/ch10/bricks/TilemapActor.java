@@ -1,4 +1,4 @@
-package com.badlogic.drop.ch10.starfish;
+package com.badlogic.drop.ch10.bricks;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
