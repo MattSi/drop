@@ -3,6 +3,7 @@ package com.badlogic.drop.desktop;
 
 import com.badlogic.drop.ch11.JumpingJackGame;
 import com.badlogic.drop.ch12.TreasureQuestGame;
+import com.badlogic.drop.ch14.MazeGame;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
@@ -12,6 +13,6 @@ public class DesktopLauncher {
 		config.title = "Drop";
 		config.width = 800;
 		config.height = 600;
-		new LwjglApplication(new TreasureQuestGame(), config);
+		new LwjglApplication(new MazeGame(), config);
 	}
 }
